@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IEMA Pleno Mario Martins Meireles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+      font-family:'Poppins', sans-serif;
+    }
+
+    body{
+      background:#081420;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* ===== Scrollbar ===== */
+
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-track{
+      background:#081420;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(180deg,#00c3ff,#005bea);
+      border-radius:20px;
+    }
+
+    /* ===== Fundo animado ===== */
+
+    .bg-animation{
+      position:fixed;
+      width:100%;
+      height:100%;
+      z-index:-1;
+      overflow:hidden;
+    }
+
+    .circle{
+      position:absolute;
+      border-radius:50%;
+      background:rgba(0,195,255,0.15);
+      animation:float 15s infinite linear;
+    }
+
+    .circle:nth-child(1){
+      width:250px;
+      height:250px;
+      top:10%;
+      left:5%;
+    }
+
+    .circle:nth-child(2){
+      width:400px;
+      height:400px;
+      bottom:-100px;
+      right:-100px;
+    }
+
+    .circle:nth-child(3){
+      width:180px;
+      height:180px;
+      top:60%;
+      left:40%;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0) rotate(0deg);
+      }
+
+      50%{
+        transform:translateY(-40px) rotate(180deg);
+      }
+
+      100%{
+        transform:translateY(0) rotate(360deg);
+      }
+    }
+
+    /* ===== Navbar ===== */
+
+    nav{
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:999;
+      backdrop-filter:blur(12px);
+      background:rgba(0,0,0,0.3);
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      transition:0.4s;
+    }
+
+    nav h1{
+      color:#00c3ff;
+      font-size:1.6rem;
+      cursor:pointer;
+    }
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:25px;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+      transition:0.3s;
+      position:relative;
+    }
+
+    nav ul li a::after{
+      content:'';
+      width:0%;
+      height:2px;
+      background:#00c3ff;
+      position:absolute;
+      left:0;
+      bottom:-5px;
+      transition:0.4s;
+    }
+
+    nav ul li a:hover::after{
+      width:100%;
+    }
+
+    nav ul li a:hover{
+      color:#00c3ff;
+    }
+
+    /* ===== Hero ===== */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:0 10%;
+      position:relative;
+    }
+
+    .hero-content{
+      animation:fadeUp 1.5s ease;
+    }
+
+    .hero h2{
+      font-size:4rem;
+      margin-bottom:20px;
+      background:linear-gradient(to right,#00c3ff,#00ffe7);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:auto;
+      font-size:1.2rem;
+      line-height:1.8;
+      color:#d9d9d9;
+    }
+
+    .btn{
+      margin-top:30px;
+      display:inline-block;
+      padding:15px 35px;
+      border-radius:50px;
+      background:linear-gradient(45deg,#00c3ff,#005bea);
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.4s;
+      box-shadow:0 0 20px rgba(0,195,255,0.4);
+    }
+
+    .btn:hover{
+      transform:scale(1.1);
+      box-shadow:0 0 30px rgba(0,195,255,0.8);
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* ===== Seções ===== */
+
+    section{
+      padding:100px 10%;
+    }
+
+    .title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .title h2{
+      font-size:2.8rem;
+      color:#00c3ff;
+      margin-bottom:15px;
+    }
+
+    .title p{
+      color:#bdbdbd;
+    }
+
+    /* ===== História ===== */
+
+    .history-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      border-radius:25px;
+      padding:30px;
+      transition:0.5s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      width:150%;
+      height:150%;
+      background:linear-gradient(45deg,transparent,#00c3ff33,transparent);
+      top:-120%;
+      left:-120%;
+      transition:0.7s;
+      transform:rotate(25deg);
+    }
+
+    .card:hover::before{
+      top:100%;
+      left:100%;
+    }
+
+    .card:hover{
+      transform:translateY(-12px) scale(1.02);
+      box-shadow:0 0 25px rgba(0,195,255,0.3);
+      border-color:#00c3ff;
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#00ffe7;
+      font-size:1.5rem;
+    }
+
+    .card p{
+      color:#ddd;
+      line-height:1.8;
+    }
+
+    /* ===== Destaques ===== */
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .feature-box{
+      text-align:center;
+      padding:40px 25px;
+      background:rgba(255,255,255,0.04);
+      border-radius:20px;
+      transition:0.4s;
+    }
+
+    .feature-box:hover{
+      transform:rotate(-2deg) scale(1.05);
+      background:rgba(0,195,255,0.12);
+    }
+
+    .feature-box span{
+      font-size:3rem;
+    }
+
+    .feature-box h3{
+      margin:20px 0;
+      color:#00c3ff;
+    }
+
+    /* ===== Galeria ===== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+    }
+
+    .gallery img{
+      width:100%;
+      border-radius:20px;
+      transition:0.5s;
+      cursor:pointer;
+    }
+
+    .gallery img:hover{
+      transform:scale(1.05);
+      filter:brightness(1.2);
+      box-shadow:0 0 25px rgba(0,195,255,0.5);
+    }
+
+    /* ===== Footer ===== */
+
+    footer{
+      padding:40px;
+      text-align:center;
+      background:#040b12;
+      margin-top:60px;
+    }
+
+    footer p{
+      color:#aaa;
+    }
+
+    /* ===== Responsivo ===== */
+
+    @media(max-width:768px){
+
+      nav{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .hero h2{
+        font-size:2.5rem;
+      }
+
+      .hero p{
+        font-size:1rem;
+      }
+
+      .title h2{
+        font-size:2rem;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="bg-animation">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <h1>IEMA Pleno</h1>
+
+    <ul>
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#historia">História</a></li>
+      <li><a href="#destaques">Destaques</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+      <h2>IEMA Pleno Mario Martins Meireles</h2>
+
+      <p>
+        Uma escola voltada para inovação, conhecimento,
+        tecnologia e desenvolvimento de jovens preparados
+        para transformar o futuro através da educação.
+      </p>
+
+      <a href="#historia" class="btn">Explorar História</a>
+
+    </div>
+
+  </section>
+
+  <!-- HISTÓRIA -->
+
+  <section id="historia">
+
+    <div class="title">
+      <h2>Nossa História</h2>
+
+      <p>
+        Conheça a trajetória do IEMA Pleno Mario Martins Meireles.
+      </p>
+    </div>
+
+    <div class="history-container">
+
+      <div class="card">
+        <h3>Fundação</h3>
+
+        <p>
+          O IEMA Pleno Mario Martins Meireles foi criado
+          com o objetivo de oferecer educação de qualidade,
+          integrando ensino médio, tecnologia, inovação
+          e desenvolvimento profissional.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Educação Tecnológica</h3>
+
+        <p>
+          A escola se destaca pelo incentivo à tecnologia,
+          programação, robótica e projetos inovadores,
+          preparando os estudantes para o mercado moderno.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Impacto Social</h3>
+
+        <p>
+          O IEMA busca transformar vidas através da educação,
+          promovendo inclusão, oportunidades e crescimento
+          pessoal para os jovens maranhenses.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- DESTAQUES -->
+
+  <section id="destaques">
+
+    <div class="title">
+      <h2>Destaques da Escola</h2>
+
+      <p>
+        Conheça os diferenciais que fazem do IEMA uma referência.
+      </p>
+    </div>
+
+    <div class="features">
+
+      <div class="feature-box">
+        <span>💻</span>
+        <h3>Tecnologia</h3>
+        <p>
+          Incentivo ao desenvolvimento tecnológico e inovação.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <span>📚</span>
+        <h3>Educação Integral</h3>
+        <p>
+          Ensino completo focado no crescimento do aluno.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <span>🚀</span>
+        <h3>Projetos</h3>
+        <p>
+          Participação em feiras, pesquisas e projetos criativos.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <span>🏆</span>
+        <h3>Excelência</h3>
+        <p>
+          Formação de estudantes preparados para o futuro.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GALERIA -->
+
+  <section id="galeria">
+
+    <div class="title">
+      <h2>Galeria</h2>
+
+      <p>
+        Espaço visual representando o ambiente escolar.
+      </p>
+    </div>
+
+    <div class="gallery">
+
+      <img src="src/imagem-meireles.jpg" alt="">
+
+      <img src="src/imagem2-IEMA.jpg" alt="">
+
+      <img src="src/imagem3_IEMA.jpg" alt="">
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <p>
+      © 2026 - IEMA Pleno Mario Martins Meireles | Desenvolvido com HTML, CSS e muita interatividade.
+    </p>
+  </footer>
+
+  <!-- JS -->
+
+  <script>
+
+    // efeito navbar
+
+    window.addEventListener("scroll", () => {
+
+      const nav = document.querySelector("nav");
+
+      nav.style.background =
+        window.scrollY > 50
+        ? "rgba(0,0,0,0.75)"
+        : "rgba(0,0,0,0.3)";
+
+    });
+
+    // animação cards
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+
+      card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.background =
+          `radial-gradient(circle at ${x}px ${y}px,
+          rgba(0,195,255,0.25),
+          rgba(255,255,255,0.05))`;
+
+      });
+
+      card.addEventListener("mouseleave", () => {
+
+        card.style.background =
+          "rgba(255,255,255,0.05)";
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
